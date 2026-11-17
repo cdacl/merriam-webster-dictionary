@@ -1,0 +1,95 @@
+[
+  {
+    "meta": {
+      "id": "run:1",
+      "src": "collegiate",
+      "section": "alpha",
+      "stems": [
+        "ran",
+        "run",
+        "running"
+      ],
+      "offensive": false
+    },
+    "hom": 1,
+    "hwi": {
+      "hw": "run",
+      "prs": [
+        {
+          "mw": "ˈrən",
+          "sound": {
+            "audio": "run00001",
+            "ref": "c",
+            "stat": "1"
+          }
+        }
+      ]
+    },
+    "fl": "verb",
+    "ins": [
+      {
+        "if": "ran",
+        "prs": [
+          {
+            "mw": "ˈran",
+            "sound": {
+              "audio": "run00002",
+              "ref": "c",
+              "stat": "1"
+            }
+          }
+        ]
+      },
+      {
+        "il": "also chiefly dialectal",
+        "if": "run"
+      },
+      {
+        "if": "run"
+      },
+      {
+        "if": "run*ning",
+        "prs": [
+          {
+            "mw": "ˈrə-niŋ",
+            "sound": {
+              "audio": "run00004",
+              "ref": "c",
+              "stat": "1"
+            }
+          }
+        ]
+      }
+    ],
+    "def": [
+      {
+        "sseq": [
+          [
+            [
+              "sense",
+              {
+                "dt": [
+                  [
+                    "text",
+                    "{bc}to go faster than a walk "
+                  ],
+                  [
+                    "vis",
+                    [
+                      {
+                        "t": "had to {it}run{/it} to catch the bus"
+                      }
+                    ]
+                  ]
+                ]
+              }
+            ]
+          ]
+        ]
+      }
+    ],
+    "shortdef": [
+      "to go faster than a walk"
+    ]
+  }
+]

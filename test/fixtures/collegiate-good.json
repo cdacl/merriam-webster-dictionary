@@ -1,0 +1,464 @@
+[
+  {
+    "meta": {
+      "id": "good:1",
+      "uuid": "7c1f0a2e-good-0001",
+      "sort": "good",
+      "src": "collegiate",
+      "section": "alpha",
+      "stems": [
+        "good",
+        "better",
+        "best"
+      ],
+      "offensive": false
+    },
+    "hom": 1,
+    "hwi": {
+      "hw": "good",
+      "prs": [
+        {
+          "mw": "ˈgu̇d",
+          "sound": {
+            "audio": "good01",
+            "ref": "c",
+            "stat": "1"
+          }
+        }
+      ]
+    },
+    "fl": "adjective",
+    "ins": [
+      {
+        "if": "bet*ter",
+        "prs": [
+          {
+            "mw": "ˈbe-tər",
+            "sound": {
+              "audio": "good0002",
+              "ref": "c",
+              "stat": "1"
+            }
+          }
+        ]
+      },
+      {
+        "if": "best",
+        "prs": [
+          {
+            "mw": "ˈbest",
+            "sound": {
+              "audio": "good0003",
+              "ref": "c",
+              "stat": "1"
+            }
+          }
+        ]
+      }
+    ],
+    "def": [
+      {
+        "sseq": [
+          [
+            [
+              "sense",
+              {
+                "sn": "1 a",
+                "dt": [
+                  [
+                    "text",
+                    "{bc}of a favorable character or tendency "
+                  ],
+                  [
+                    "vis",
+                    [
+                      {
+                        "t": "good news"
+                      },
+                      {
+                        "t": "{it}good{/it} weather"
+                      }
+                    ]
+                  ]
+                ]
+              }
+            ]
+          ],
+          [
+            [
+              "sense",
+              {
+                "sn": "b",
+                "dt": [
+                  [
+                    "text",
+                    "{bc}fertile, bountiful "
+                  ]
+                ]
+              }
+            ],
+            [
+              "sense",
+              {
+                "sn": "c",
+                "dt": [
+                  [
+                    "text",
+                    "{bc}not spoiled or ruined "
+                  ],
+                  [
+                    "vis",
+                    [
+                      {
+                        "t": "a {it}good{/it} egg"
+                      }
+                    ]
+                  ]
+                ]
+              }
+            ]
+          ],
+          [
+            [
+              "sense",
+              {
+                "sn": "2 a",
+                "dt": [
+                  [
+                    "text",
+                    "{bc}suitable, fit "
+                  ],
+                  [
+                    "vis",
+                    [
+                      {
+                        "t": "{it}good{/it} to eat"
+                      }
+                    ]
+                  ],
+                  [
+                    "text",
+                    "{dx}compare {dxt|well||}{/dx}"
+                  ]
+                ]
+              }
+            ]
+          ]
+        ]
+      },
+      {
+        "vd": "predicative",
+        "sseq": [
+          [
+            [
+              "sense",
+              {
+                "dt": [
+                  [
+                    "text",
+                    "{bc}of a favorable character or tendency "
+                  ],
+                  [
+                    "uns",
+                    {
+                      "text": "—used as a predicate adjective"
+                    }
+                  ]
+                ]
+              }
+            ]
+          ]
+        ]
+      }
+    ],
+    "et": [
+      [
+        "text",
+        "Middle English, from Old English {i_link|gōd|gōd}; akin to Old High German {i_link|guot|guot} "
+      ]
+    ],
+    "date": "before 12th century{ds|t|1|a|1}",
+    "uros": [
+      {
+        "ure": "good*ness",
+        "fl": "noun",
+        "def": [
+          {
+            "sseq": [
+              [
+                [
+                  "sense",
+                  {
+                    "dt": [
+                      [
+                        "text",
+                        "{bc}the quality or state of being good "
+                      ]
+                    ]
+                  }
+                ]
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "shortdef": [
+      "of a favorable character or tendency",
+      "bountiful, fertile",
+      "suitable, fit"
+    ],
+    "usages": [
+      {
+        "pl": "{parahw}good{/parahw} vs. {parahw}well{/parahw}",
+        "pt": [
+          [
+            "text",
+            "\"I feel good\" and \"I feel well\" are both standard in English. "
+          ],
+          [
+            "vis",
+            [
+              {
+                "t": "feeling proud/confident"
+              },
+              {
+                "t": "it {it}feels{/it} smooth"
+              }
+            ]
+          ],
+          [
+            "text",
+            " Both {it}well{/it} and {it}good{/it} are adjectives when they follow {it}feel{/it} to express good health."
+          ]
+        ],
+        "uarefs": {
+          "uaref": [
+            "well|well"
+          ]
+        }
+      }
+    ],
+    "dxnls": [
+      "see also {dxt|goodness||}"
+    ]
+  },
+  {
+    "meta": {
+      "id": "good:2",
+      "uuid": "7c1f0a2e-good-0002",
+      "sort": "good",
+      "src": "collegiate",
+      "section": "alpha",
+      "stems": [
+        "good"
+      ],
+      "offensive": false
+    },
+    "hom": 2,
+    "hwi": {
+      "hw": "good"
+    },
+    "fl": "noun",
+    "def": [
+      {
+        "sseq": [
+          [
+            [
+              "sense",
+              {
+                "sn": "1",
+                "dt": [
+                  [
+                    "text",
+                    "{bc}something that is good "
+                  ],
+                  [
+                    "vis",
+                    [
+                      {
+                        "t": "{ldquo}the good{rdquo} of the community"
+                      }
+                    ]
+                  ]
+                ]
+              }
+            ]
+          ],
+          [
+            [
+              "sense",
+              {
+                "sn": "2",
+                "dt": [
+                  [
+                    "text",
+                    "{bc}benefit, welfare "
+                  ]
+                ]
+              }
+            ]
+          ]
+        ]
+      }
+    ],
+    "date": "before 12th century",
+    "shortdef": [
+      "something that is good",
+      "benefit, welfare"
+    ]
+  },
+  {
+    "meta": {
+      "id": "best:1",
+      "src": "collegiate",
+      "section": "alpha",
+      "stems": [
+        "best"
+      ],
+      "offensive": false
+    },
+    "hom": 1,
+    "hwi": {
+      "hw": "best",
+      "prs": [
+        {
+          "mw": "ˈbest",
+          "sound": {
+            "audio": "best0001",
+            "ref": "c",
+            "stat": "1"
+          }
+        }
+      ]
+    },
+    "fl": "adjective",
+    "cxs": [
+      {
+        "cxl": "superlative of",
+        "cxtis": [
+          {
+            "cxt": "good"
+          }
+        ]
+      }
+    ],
+    "def": [
+      {
+        "sseq": [
+          [
+            [
+              "sense",
+              {
+                "dt": [
+                  [
+                    "text",
+                    "{bc}excelling all others "
+                  ]
+                ]
+              }
+            ]
+          ]
+        ]
+      }
+    ],
+    "shortdef": [
+      "excelling all others"
+    ]
+  },
+  {
+    "meta": {
+      "id": "better:1",
+      "src": "collegiate",
+      "section": "alpha",
+      "stems": [
+        "better"
+      ],
+      "offensive": false
+    },
+    "hom": 1,
+    "hwi": {
+      "hw": "bet*ter",
+      "prs": [
+        {
+          "mw": "ˈbe-tər",
+          "sound": {
+            "audio": "better01",
+            "ref": "c",
+            "stat": "1"
+          }
+        }
+      ]
+    },
+    "fl": "adjective",
+    "cxs": [
+      {
+        "cxl": "comparative of",
+        "cxtis": [
+          {
+            "cxt": "good"
+          }
+        ]
+      }
+    ],
+    "def": [
+      {
+        "sseq": [
+          [
+            [
+              "sense",
+              {
+                "dt": [
+                  [
+                    "text",
+                    "{bc}more than good "
+                  ]
+                ]
+              }
+            ]
+          ]
+        ]
+      }
+    ],
+    "shortdef": [
+      "more than good"
+    ]
+  },
+  {
+    "meta": {
+      "id": "good and",
+      "src": "collegiate",
+      "section": "alpha",
+      "stems": [
+        "good and"
+      ],
+      "offensive": false
+    },
+    "hwi": {
+      "hw": "good and"
+    },
+    "fl": "adverb",
+    "def": [
+      {
+        "sseq": [
+          [
+            [
+              "sense",
+              {
+                "dt": [
+                  [
+                    "text",
+                    "{bc}very, entirely "
+                  ]
+                ]
+              }
+            ]
+          ]
+        ]
+      }
+    ],
+    "shortdef": [
+      "very, entirely"
+    ]
+  }
+]

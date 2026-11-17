@@ -1,0 +1,77 @@
+[
+  {
+    "meta": {
+      "id": "tab:1",
+      "uuid": "tab-0001",
+      "sort": "tab",
+      "src": "collegiate",
+      "section": "alpha",
+      "stems": ["tab"],
+      "offensive": false
+    },
+    "hwi": {
+      "hw": "tab",
+      "prs": [{ "mw": "ˈtab", "sound": { "audio": "tab01", "ref": "c", "stat": "1" } }]
+    },
+    "fl": "noun",
+    "def": [
+      {
+        "sseq": [
+          [
+            [
+              "sense",
+              {
+                "sn": "1",
+                "dt": [["text", "{bc}a short projecting device: such as "]]
+              }
+            ],
+            [
+              "pseq",
+              [
+                [
+                  "bs",
+                  {
+                    "sense": {
+                      "sn": "1 a",
+                      "dt": [["text", "{bc}a short projecting device: such as "]]
+                    }
+                  }
+                ],
+                [
+                  "sense",
+                  {
+                    "sn": "(1)",
+                    "dt": [
+                      [
+                        "text",
+                        "{bc}a small flap or loop by which something may be grasped or pulled "
+                      ],
+                      ["vis", [{ "t": "lift the {wi}tab{/wi} of the zipper" }]]
+                    ]
+                  }
+                ],
+                [
+                  "sense",
+                  {
+                    "sn": "(2)",
+                    "dt": [["text", "{bc}a projection from a card used as an aid in filing"]]
+                  }
+                ]
+              ]
+            ]
+          ],
+          [
+            [
+              "sense",
+              {
+                "sn": "2",
+                "dt": [["text", "{bc}{sx|bounce||}, {sx|rebound||} "]]
+              }
+            ]
+          ]
+        ]
+      }
+    ],
+    "shortdef": ["a short projecting device", "bounce, rebound"]
+  }
+]

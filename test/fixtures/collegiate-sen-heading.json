@@ -1,0 +1,33 @@
+[
+  {
+    "meta": { "id": "good:1", "uuid": "sen-heading-1", "src": "collegiate", "section": "alpha", "stems": ["good"], "lang": "en", "offensive": false },
+    "hom": 1,
+    "hwi": { "hw": "good" },
+    "fl": "adjective",
+    "def": [
+      {
+        "sseq": [
+          [
+            ["sense", { "sn": "f (1)", "dt": [["text", "adequate, satisfactory"]] }],
+            ["sen", { "sn": "g", "sls": ["sports"] }],
+            ["pseq", [
+              ["sense", { "sn": "(1)", "sls": ["of a serve or shot"], "dt": [["text", "landing in the proper area of the court"]] }],
+              ["sense", { "sn": "(2)", "dt": [["text", "successfully done"]] }]
+            ]],
+            ["sen", { "sn": "h", "sls": ["informal"] }],
+            ["pseq", [
+              ["sense", { "sn": "(1)", "dt": [["text", "having everything desired or required"]] }]
+            ]]
+          ],
+          [
+            ["pseq", [
+              ["sense", { "sn": "2 a (1)", "dt": [["text", "of a favorable character"]] }],
+              ["sense", { "sn": "(2)", "dt": [["text", "bountiful, fertile"]] }]
+            ]]
+          ]
+        ]
+      }
+    ],
+    "shortdef": ["of a favorable character"]
+  }
+]

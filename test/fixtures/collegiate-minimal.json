@@ -1,0 +1,25 @@
+[
+  {
+    "meta": { "id": "minimal:1", "uuid": "minimal-0001" },
+    "shortdef": ["只有一段简短释义，没有 hwi、prs、def"]
+  },
+  {
+    "meta": { "id": "minimal:2", "uuid": "minimal-0002" },
+    "hwi": { "hw": "minimal" },
+    "fl": "adjective",
+    "def": [
+      {
+        "sseq": [
+          [
+            [
+              "sense",
+              {
+                "dt": [["text", "{bc}something without any extra fields "]]
+              }
+            ]
+          ]
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,111 @@
+{
+  "identifier": "com.cdacl.bobplugin.merriamwebster",
+  "version": "1.0.0",
+  "category": "translate",
+  "name": "Merriam-Webster 词典",
+  "summary": "基于 Merriam-Webster 官方 API 的英英词典：释义、音标、真人发音、词形变化、词源与同义词",
+  "author": "acl1999",
+  "homepage": "https://github.com/cdacl/merriam-webster-dictionary",
+  "appcast": "https://raw.githubusercontent.com/cdacl/merriam-webster-dictionary/main/appcast.json",
+  "minBobVersion": "1.8.0",
+  "options": [
+    {
+      "identifier": "apiKey",
+      "type": "text",
+      "title": "API Key",
+      "defaultValue": "",
+      "textConfig": {
+        "type": "secure",
+        "placeholderText": "在 dictionaryapi.com 免费申请"
+      },
+      "desc": "必填。每个账号可申请 2 个 Key，每个 Key 每天 1000 次查询；缓存开启时重复查询不消耗次数"
+    },
+    {
+      "identifier": "thesaurusApiKey",
+      "type": "text",
+      "title": "同义词词典 Key（可选）",
+      "defaultValue": "",
+      "textConfig": {
+        "type": "secure",
+        "placeholderText": "只选「同义词词典」时才需要"
+      },
+      "desc": "同义词 / 反义词来自 Thesaurus，它的 Key 与主词典不通用，需要在 dictionaryapi.com 后台单独申请后填这里。"
+    },
+    {
+      "identifier": "dictionary",
+      "type": "menu",
+      "title": "词典",
+      "defaultValue": "collegiate",
+      "menuValues": [
+        {
+          "title": "韦氏大学词典（Collegiate）",
+          "value": "collegiate"
+        },
+        {
+          "title": "韦氏同义词词典（Thesaurus）",
+          "value": "thesaurus"
+        }
+      ]
+    },
+    {
+      "identifier": "resultStyle",
+      "type": "menu",
+      "title": "显示方式",
+      "defaultValue": "both",
+      "menuValues": [
+        {
+          "title": "词典面板 + 完整释义",
+          "value": "both"
+        },
+        {
+          "title": "仅词典面板（简洁）",
+          "value": "dict"
+        },
+        {
+          "title": "仅完整释义",
+          "value": "full"
+        }
+      ]
+    },
+    {
+      "identifier": "showExamples",
+      "type": "menu",
+      "title": "例句",
+      "defaultValue": "on",
+      "menuValues": [
+        {
+          "title": "显示",
+          "value": "on"
+        },
+        {
+          "title": "隐藏",
+          "value": "off"
+        }
+      ]
+    },
+    {
+      "identifier": "cacheDays",
+      "type": "menu",
+      "title": "本地缓存",
+      "defaultValue": "7",
+      "menuValues": [
+        {
+          "title": "7 天（推荐，省查询次数）",
+          "value": "7"
+        },
+        {
+          "title": "1 天",
+          "value": "1"
+        },
+        {
+          "title": "30 天",
+          "value": "30"
+        },
+        {
+          "title": "关闭",
+          "value": "0"
+        }
+      ]
+    }
+  ]
+}

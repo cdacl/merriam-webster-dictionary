@@ -1,0 +1,98 @@
+[
+  {
+    "meta": {
+      "id": "above",
+      "uuid": "6d8ecefc-thes-0001",
+      "src": "coll_thes",
+      "section": "alpha",
+      "stems": [
+        "above"
+      ],
+      "syns": [
+        [
+          "aloft",
+          "over",
+          "overhead"
+        ]
+      ],
+      "ants": [
+        [
+          "below",
+          "beneath",
+          "under"
+        ]
+      ],
+      "offensive": false
+    },
+    "hwi": {
+      "hw": "above"
+    },
+    "fl": "adverb",
+    "def": [
+      {
+        "sseq": [
+          [
+            [
+              "sense",
+              {
+                "sn": "1",
+                "dt": [
+                  [
+                    "text",
+                    "{bc}in or to a higher place than something "
+                  ]
+                ],
+                "syn_list": [
+                  [
+                    {
+                      "wd": "aloft"
+                    },
+                    {
+                      "wd": "over"
+                    },
+                    {
+                      "wd": "overhead"
+                    }
+                  ]
+                ],
+                "ant_list": [
+                  [
+                    {
+                      "wd": "below"
+                    },
+                    {
+                      "wd": "beneath"
+                    }
+                  ]
+                ],
+                "rel_list": [
+                  [
+                    {
+                      "wd": "higher"
+                    },
+                    {
+                      "wd": "up"
+                    }
+                  ]
+                ],
+                "near_list": [
+                  [
+                    {
+                      "wd": "on top of"
+                    },
+                    {
+                      "wd": "atop"
+                    }
+                  ]
+                ]
+              }
+            ]
+          ]
+        ]
+      }
+    ],
+    "shortdef": [
+      "in or to a higher place than something"
+    ]
+  }
+]

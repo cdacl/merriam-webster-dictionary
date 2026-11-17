@@ -1,0 +1,13 @@
+{
+  "identifier": "com.cdacl.bobplugin.merriamwebster",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "desc": "首个公开版本：词典面板 + 完整释义、纯英文输出、Collegiate 与 Thesaurus 两部词典、真人发音、词形变化、用法说明、本地缓存。",
+      "sha256": "2f48640eef6aec5bfde94701f36e43b2fa13fa26b6dac3b29cd1221f8ed0cde1",
+      "url": "https://github.com/cdacl/merriam-webster-dictionary/releases/download/v1.0.0/merriam-webster-dictionary-1.0.0.bobplugin",
+      "minBobVersion": "1.8.0",
+      "timestamp": 1794901135630
+    }
+  ]
+}
