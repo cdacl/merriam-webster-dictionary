@@ -9,7 +9,8 @@
 - **词典面板**：词头、音标（可点击发音）、按词性分组的释义、词形变化（plural / past / comparative…，带各自的音标）、词源与首次使用年代。
 - **分隔线**：面板和完整释义上下并列时，完整释义最前面有一条分隔线，两块内容不会糊在一起。
 - **完整释义**：Markdown 排版的整条词条，包含义项编号（1 a、b、2 a…）、用法标签、例句、派生词。
-- **用法说明**：像 `good` 的「Good vs. Well: Usage Guide」这类用法辨析、以及同义词辨析，会作为独立段落排在释义后面。
+- **Markdown 分块**：词条用三级标题（`### good`），词性分隔、用法说明、派生词、参见用四级标题（`#### Related`）；例句用引用块（`> *good news*`）与释义正文分开；同一词的不同词条之间用分割线隔开。
+- **用法说明**：像 `good` 的「Good vs. Well: Usage Guide」这类用法辨析、以及同义词辨析，会作为独立小节排在释义后面。
 - **参见**：条目里的 `see also` 交叉引用。
 - **只显示查的那个词**：Merriam-Webster 对 `good` 会连带返回 `best`、`better`、`good and` 等词条，插件只保留词头与查询词一致的条目，不会混进面板。
 - **两部词典**：韦氏大学词典（Collegiate，默认）与韦氏同义词词典（Thesaurus），设置里切换。
@@ -17,6 +18,8 @@
 - **纯英文输出**：面板与释义里没有任何中文标签，全部使用英文词典术语（`comparative`、`Etymology`、`Synonyms` 等）。
 - **查不到时给出建议**：拼错了会把 Merriam-Webster 的建议词放进词典面板的「Did you mean」，一个词一行、可直接点击，点一下就把该词填回查询框再查一次。
 - **本地缓存**：查询结果缓存在插件沙盒里，重复查询不消耗每日额度。
+
+> **关于 Markdown**：标题、引用块、分割线需要 Bob 1.21.0 及以上且 macOS 13 及以上才会渲染；更早的 Bob 会自动退回纯文本排版（用 `·` 和缩进表示层级），内容不变。Bob 的「偏好设置 - 翻译 - Markdown」里可以关闭渲染。
 
 > **关于发音**：可点击播放的发音按钮来自 Bob 词典面板的 `phonetics` 字段，只能挂在词头上；词形变化（better / best 等）的音标会以文本形式跟在单词后面。Markdown 完整释义里不支持播放音频。
 
@@ -27,7 +30,7 @@
 ## 安装
 
 1. 到 [Releases](https://github.com/cdacl/merriam-webster-dictionary/releases/latest) 下载
-   [`merriam-webster-dictionary-1.0.0.bobplugin`](https://github.com/cdacl/merriam-webster-dictionary/releases/download/v1.0.0/merriam-webster-dictionary-1.0.0.bobplugin)。
+   [`merriam-webster-dictionary-1.1.0.bobplugin`](https://github.com/cdacl/merriam-webster-dictionary/releases/download/v1.1.0/merriam-webster-dictionary-1.1.0.bobplugin)。
 2. 双击安装（或者在 Bob 的「插件」页面里拖入）。
 3. 在 Bob → 插件 → Merriam-Webster 词典 → 设置里填入 API Key。
 
@@ -126,6 +129,11 @@ bash build/package.sh
   如果分发请自行确认授权范围。
 
 ## 更新记录
+
+### 1.1.0
+
+- 用 Bob 1.21.0 的 Markdown 渲染重排完整释义：词性分隔、用法说明、派生词、参见改成四级标题（`####`），例句改成引用块（`>`），同一词的不同词条之间加分割线，同义词/反义词等列表的标签加粗。
+- 老版本 Bob（< 1.21.0）继续走纯文本排版，内容一致。
 
 ### 1.0.0
 

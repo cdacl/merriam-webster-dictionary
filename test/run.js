@@ -352,12 +352,27 @@ async function testTranslate() {
     expectNotContains(text, 'bet*ter');
   });
 
-  check('用法说明渲染成独立段落', function () {
+  check('用法说明渲染成小节标题', function () {
     var text = both.result.content.text;
-    expectContains(text, '**good** vs. **well**');
+    expectContains(text, '#### **good** vs. **well**');
     expectContains(text, 'are both standard in English');
-    expectContains(text, 'feeling proud/confident');
-    expectContains(text, '**See also** goodness');
+    expectContains(text, '> *feeling proud/confident*');
+    expectContains(text, '#### See also');
+    expectContains(text, 'goodness');
+  });
+
+  check('Markdown 结构：例句用引用块、小节用标题、词条之间用分割线', function () {
+    var text = both.result.content.text;
+    // 例句换成引用块，释义正文和例句一眼分得开
+    expectContains(text, '> *good news*');
+    expectNotContains(text, '- *good news*');
+    // 词性分隔（predicative）也让位给标题，避免和释义正文混在一起
+    expectContains(text, '#### predicative');
+    // 两个词条之间用分割线，避免「### good (2)」直接顶上来
+    expect(text.indexOf('---\n\n### good (2)') >= 0, '词条之间缺少分割线');
+    // 标题层级：词条用三级标题，小节用四级标题
+    expectContains(text, '### good');
+    expectContains(text, '#### Related');
   });
 
   check('连带返回的相关词条被过滤', function () {
@@ -549,8 +564,10 @@ async function testOtherDictionaries() {
   });
   check('同义词词典的近义、相关、近反义词', function () {
     var text = thesaurus.result.content.text;
-    expectContains(text, 'Related: higher, up');
-    expectContains(text, 'Near antonyms: on top of, atop');
+    expectContains(text, '- **Synonyms** aloft, over, overhead');
+    expectContains(text, '- **Antonyms** below, beneath');
+    expectContains(text, '- **Related** higher, up');
+    expectContains(text, '- **Near antonyms** on top of, atop');
   });
   check('同义词词典面板', function () {
     var additions = thesaurus.result.toDict.additions || [];

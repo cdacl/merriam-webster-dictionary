@@ -41,6 +41,16 @@ function blank(out) {
   if (out[out.length - 1] !== '') out.push('');
 }
 
+// 小节标题：Markdown 里用四级标题便于扫读，纯文本仍用粗体
+function heading(mode, text) {
+  return mode === 'md' ? '#### ' + text : bold(mode, text);
+}
+
+// 例句：Markdown 里用引用块，和释义正文区分开
+function exampleLine(mode, text) {
+  return mode === 'md' ? '> ' + text : text;
+}
+
 // 拼接相邻的文本片段：每段单独渲染时首尾空格会被吃掉，这里补回来
 function appendFragment(base, fragment) {
   if (!fragment) return base;
@@ -226,11 +236,14 @@ function renderSense(sense, options, mode, level, out) {
 
   // 例句、具体化说明、近义词/反义词用列表，统一放在编号行下面
   var listLevel = mode === 'md' ? 0 : level + 1;
+  var quoteLines = [];
   var listLines = [];
   if (options.showExamples) {
     body.examples.forEach(function (example) {
       var text = flatten(Markup.render(example, mode));
-      if (text) listLines.push(bullet(mode, listLevel) + italicSafe(mode, text));
+      if (!text) return;
+      if (mode === 'md') quoteLines.push(exampleLine(mode, italicSafe(mode, text)));
+      else listLines.push(bullet(mode, listLevel) + italicSafe(mode, text));
     });
   }
 
@@ -245,18 +258,20 @@ function renderSense(sense, options, mode, level, out) {
   }
 
   // 同义词词典的义项里带有同义词/反义词列表
-  if (sense.syns.length) {
-    listLines.push(bullet(mode, listLevel) + 'Synonyms: ' + sense.syns.slice(0, 12).join(', '));
-  }
-  if (sense.ants.length) {
-    listLines.push(bullet(mode, listLevel) + 'Antonyms: ' + sense.ants.slice(0, 12).join(', '));
-  }
-  if (sense.related.length) {
-    listLines.push(bullet(mode, listLevel) + 'Related: ' + sense.related.slice(0, 12).join(', '));
-  }
-  if (sense.near.length) {
-    // MW 的 near_list 是「近反义词」，不是近义词
-    listLines.push(bullet(mode, listLevel) + 'Near antonyms: ' + sense.near.slice(0, 12).join(', '));
+  var wordList = function (label, words) {
+    var prefix = mode === 'md' ? boldSafe(mode, label) + ' ' : label + ': ';
+    listLines.push(bullet(mode, listLevel) + prefix + words.slice(0, 12).join(', '));
+  };
+  if (sense.syns.length) wordList('Synonyms', sense.syns);
+  if (sense.ants.length) wordList('Antonyms', sense.ants);
+  if (sense.related.length) wordList('Related', sense.related);
+  // MW 的 near_list 是「近反义词」，不是近义词
+  if (sense.near.length) wordList('Near antonyms', sense.near);
+
+  if (quoteLines.length) {
+    blank(out);
+    Array.prototype.push.apply(out, quoteLines);
+    blank(out);
   }
 
   if (listLines.length) {
@@ -288,7 +303,7 @@ function renderSection(section, options, mode, out) {
   if (!section.blocks || !section.blocks.length) return false;
   if (section.divider) {
     blank(out);
-    out.push(bold(mode, section.divider));
+    out.push(heading(mode, section.divider));
   }
   section.blocks.forEach(function (block) {
     block.forEach(function (sense, index) {
@@ -314,17 +329,20 @@ function renderProse(parts, options, mode, out) {
       buffer = appendFragment(buffer, part.v);
     } else if (part.t === 'vis') {
       flush();
+      if (mode === 'md') blank(out);
       var pushed = false;
       if (options.showExamples) {
         part.v.forEach(function (example) {
           var text = flatten(Markup.render(example, mode));
-          if (text) {
-            out.push(bullet(mode, 1) + italicSafe(mode, text));
-            pushed = true;
-          }
+          if (!text) return;
+          if (mode === 'md') out.push(exampleLine(mode, italicSafe(mode, text)));
+          else out.push(bullet(mode, 1) + italicSafe(mode, text));
+          pushed = true;
         });
       }
-      if (pushed) blank(out);
+      if (pushed) {
+        blank(out);
+      }
     }
   });
   flush();
@@ -335,13 +353,13 @@ function renderParagraphSections(sections, options, mode, out) {
   (sections || []).forEach(function (section) {
     blank(out);
     if (section.title) {
-      out.push(boldSafe(mode, flatten(Markup.render(section.title, mode))));
+      out.push(heading(mode, flatten(Markup.render(section.title, mode))));
       blank(out);
     }
     renderProse(section.parts, options, mode, out);
     if (section.refs && section.refs.length) {
       blank(out);
-      out.push(italic(mode, 'See') + ' ' + section.refs.join(', '));
+      out.push(bold(mode, 'See') + ' ' + section.refs.join(', '));
     }
   });
 }
@@ -449,7 +467,7 @@ function renderEntry(entry, options, mode, out, displayNumber) {
   // 派生词、短语动词
   if (entry.runOns.length || entry.definedRunOns.length) {
     blank(out);
-    out.push(bold(mode, 'Related'));
+    out.push(heading(mode, 'Related'));
     entry.runOns.forEach(function (runOn) {
       renderRunOn(runOn, options, mode, out);
     });
@@ -465,7 +483,9 @@ function renderEntry(entry, options, mode, out, displayNumber) {
       // 数据里本身就带 "see also" 前缀，别和标题重复
       return flatten(Markup.render(item, mode)).replace(/^see also\s+/i, '');
     });
-    out.push(bold(mode, 'See also') + ' ' + refs.join('; '));
+    out.push(heading(mode, 'See also'));
+    blank(out);
+    out.push(refs.join('; '));
   }
 }
 
@@ -485,7 +505,14 @@ function content(entries, options, mode) {
   // 同一词的多个词条（词性不同）编号，避免连续几个一模一样的标题
   var seen = {};
   entries.forEach(function (entry, index) {
-    if (index > 0) lines.push('');
+    if (index > 0) {
+      lines.push('');
+      // 多词条之间用分割线隔开，Markdown 下更清楚
+      if (mode === 'md') {
+        lines.push('---');
+        lines.push('');
+      }
+    }
     var key = String(entry.word || '');
     seen[key] = (seen[key] || 0) + 1;
     var number = entry.homograph > 1 ? entry.homograph : seen[key];

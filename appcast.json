@@ -2,6 +2,14 @@
   "identifier": "com.cdacl.bobplugin.merriamwebster",
   "versions": [
     {
+      "version": "1.1.0",
+      "desc": "用 Bob 1.21 的 Markdown 渲染重排完整释义：小节标题、引用块例句、词条分割线；老版本 Bob 自动退回纯文本。",
+      "sha256": "f5fa4dbeec322f802988d837be535e02297b6b4b3fa269fd09feed669e8f1f7c",
+      "url": "https://github.com/cdacl/merriam-webster-dictionary/releases/download/v1.1.0/merriam-webster-dictionary-1.1.0.bobplugin",
+      "minBobVersion": "1.8.0",
+      "timestamp": 1794963131860
+    },
+    {
       "version": "1.0.0",
       "desc": "首个公开版本：词典面板 + 完整释义、纯英文输出、Collegiate 与 Thesaurus 两部词典、真人发音、词形变化、用法说明、本地缓存。",
       "sha256": "2f48640eef6aec5bfde94701f36e43b2fa13fa26b6dac3b29cd1221f8ed0cde1",
