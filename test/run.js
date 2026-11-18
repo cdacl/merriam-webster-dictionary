@@ -212,7 +212,7 @@ function testMarkup() {
     expectEqual(Markup.render('see {a_link|good} and {d_link|bad|bad}', 'md'), 'see good and bad');
   });
   check('交叉引用 {dxt}', function () {
-    expectEqual(Markup.render('{dx}compare {dxt|well||}{/dx}', 'md'), '— compare well');
+    expectEqual(Markup.render('{dx}compare {dxt|well||}{/dx}', 'md'), '→ compare well');
   });
   check('gloss 用方括号括起', function () {
     expectEqual(Markup.render('{gloss}a term{/gloss}', 'md'), '[a term]');
@@ -347,8 +347,8 @@ async function testTranslate() {
 
   check('词形变化带音标且不被 Markdown 吃掉', function () {
     var text = both.result.content.text;
-    expectContains(text, '*comparative* **bet·ter** /ˈbe-tər/');
-    expectContains(text, '*superlative* **best** /ˈbest/');
+    expectContains(text, '`comparative` **bet·ter** /ˈbe-tər/');
+    expectContains(text, '`superlative` **best** /ˈbest/');
     expectNotContains(text, 'bet*ter');
   });
 
@@ -701,6 +701,78 @@ async function testRealResponseShapes() {
   });
 }
 
+async function testUsageNoteArrow() {
+  console.log('\n用法说明的箭头');
+
+  responses = { good: { status: 200, payload: fixture('collegiate-uns.json') } };
+  var uns = await translate('good');
+  check('只有用法说明的义项：箭头直接跟在编号后面', function () {
+    var text = uns.result.content.text;
+    expectContains(text, '**(8)** → used in speech as a response signaling approval or agreement');
+    expectContains(text, '> "I\'m ready to go when you are." "*Good*, let\'s get going.');
+  });
+  check('定义例句之后的用法说明另起一行', function () {
+    var text = uns.result.content.text;
+    expectContains(text, '\n\n→ often used in faint praise\n');
+    var previous = text.indexOf('Keep up the *good* work.');
+    var arrow = text.indexOf('→ often used in faint praise');
+    var following = text.indexOf('The movie was *good* but not great.');
+    expect(previous >= 0 && arrow > previous && following > arrow, '顺序应为：例句 → 用法说明 → 说明的例句');
+  });
+  check('用法说明自己的例句排在箭头之后', function () {
+    var text = uns.result.content.text;
+    var arrow = text.indexOf('→ used in speech');
+    var example = text.indexOf('*Good*, let\'s get going');
+    expect(arrow >= 0 && example > arrow, '例句应该在用法说明之后');
+  });
+  check('缩进仍是 1.1.0 的排版（没有 &nbsp; 实体）', function () {
+    expectNotContains(uns.result.content.text, '&nbsp;');
+  });
+
+  // 老版本 Bob 走纯文本，也不能把实体露出来
+  global.$env.appVersion = '1.20.5';
+  var legacy = await translate('good');
+  global.$env.appVersion = '1.21.0';
+  check('纯文本模式不出现 &nbsp; 实体', function () {
+    var text = legacy.result.content.text;
+    expectNotContains(text, '&nbsp;');
+    expectNotContains(text, '**');
+  });
+}
+
+async function testBadgeAndLayout() {
+  console.log('\n灰色底标签与释义排版');
+
+  responses = { water: { status: 200, payload: fixture('collegiate-water.json') } };
+  var water = await translate('water');
+  check('词形变化排在编号后面、标签用行内代码', function () {
+    var text = water.result.content.text;
+    expectContains(text, '**1 a (1)** **wa·ters** /ˈwȯ-tərz/ `plural`: the water occupying');
+  });
+  check('词头标签用行内代码', function () {
+    expectContains(water.result.content.text, '**n.** `often attributive`');
+  });
+  check('具体化说明不带项目符号', function () {
+    var text = water.result.content.text;
+    expectContains(text, '\n\n*specifically* a lustrous appearance');
+    expectNotContains(text, '- *specifically*');
+  });
+
+  responses = { good: { status: 200, payload: fixture('collegiate-sen-heading.json') } };
+  var good = await translate('good');
+  check('义项标签用行内代码', function () {
+    expectContains(good.result.content.text, '**g** `sports`');
+  });
+
+  // 纯文本模式不应该露出反引号
+  global.$env.appVersion = '1.20.5';
+  var legacy = await translate('good');
+  global.$env.appVersion = '1.21.0';
+  check('纯文本模式不出现反引号', function () {
+    expectNotContains(legacy.result.content.text, '`');
+  });
+}
+
 async function testValidate() {
   console.log('\n密钥验证');
   responses = { test: { status: 200, payload: fixture('collegiate-good.json') } };
@@ -786,6 +858,8 @@ async function main() {
   await testOtherDictionaries();
   await testNestedSenses();
   await testRealResponseShapes();
+  await testUsageNoteArrow();
+  await testBadgeAndLayout();
   await testValidate();
   await preview();
 

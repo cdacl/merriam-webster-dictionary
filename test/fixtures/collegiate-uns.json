@@ -1,0 +1,117 @@
+[
+  {
+    "meta": {
+      "id": "good:1",
+      "uuid": "11111111-2222-3333-4444-555555555555",
+      "sort": "good",
+      "src": "collegiate",
+      "section": "alpha",
+      "stems": [
+        "good"
+      ],
+      "offensive": false
+    },
+    "hom": 1,
+    "hwi": {
+      "hw": "good"
+    },
+    "fl": "adjective",
+    "def": [
+      {
+        "sseq": [
+          [
+            [
+              "pseq",
+              [
+                [
+                  "sense",
+                  {
+                    "sn": "1",
+                    "dt": [
+                      [
+                        "text",
+                        "{bc}of a favorable character or tendency "
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  "sense",
+                  {
+                    "sn": "(8)",
+                    "dt": [
+                      [
+                        "uns",
+                        [
+                          [
+                            [
+                              "text",
+                              "used in speech as a response signaling approval or agreement "
+                            ],
+                            [
+                              "vis",
+                              [
+                                {
+                                  "t": "\"I'm ready to go when you are.\" \"{wi}Good{/wi}, let's get going.\""
+                                }
+                              ]
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  "sense",
+                  {
+                    "sn": "1 f (1)",
+                    "dt": [
+                      [
+                        "text",
+                        "{bc}adequate, satisfactory "
+                      ],
+                      [
+                        "vis",
+                        [
+                          {
+                            "t": "a car still in {wi}good{/wi} shape"
+                          },
+                          {
+                            "t": "Keep up the {wi}good{/wi} work."
+                          }
+                        ]
+                      ],
+                      [
+                        "uns",
+                        [
+                          [
+                            [
+                              "text",
+                              "often used in faint praise "
+                            ],
+                            [
+                              "vis",
+                              [
+                                {
+                                  "t": "The movie was {wi}good{/wi} but not great."
+                                }
+                              ]
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  }
+                ]
+              ]
+            ]
+          ]
+        ]
+      }
+    ],
+    "shortdef": [
+      "of a favorable character or tendency"
+    ]
+  }
+]

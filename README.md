@@ -1,5 +1,7 @@
 # Merriam-Webster 词典 · Bob 插件
 
+中文 · [English](README.en.md)
+
 在 [Bob](https://bobtranslate.com) 里直接查 Merriam-Webster（韦氏词典）的词条：音标、真人发音、英文释义、例句、词形变化、词源，以及同义词 / 反义词。
 
 数据来自 [Merriam-Webster Dictionary API](https://www.dictionaryapi.com/products/json)，插件本身不采集、不上传任何用户数据。
@@ -30,7 +32,7 @@
 ## 安装
 
 1. 到 [Releases](https://github.com/cdacl/merriam-webster-dictionary/releases/latest) 下载
-   [`merriam-webster-dictionary-1.1.0.bobplugin`](https://github.com/cdacl/merriam-webster-dictionary/releases/download/v1.1.0/merriam-webster-dictionary-1.1.0.bobplugin)。
+   [`merriam-webster-dictionary-1.1.1.bobplugin`](https://github.com/cdacl/merriam-webster-dictionary/releases/download/v1.1.1/merriam-webster-dictionary-1.1.1.bobplugin)。
 2. 双击安装（或者在 Bob 的「插件」页面里拖入）。
 3. 在 Bob → 插件 → Merriam-Webster 词典 → 设置里填入 API Key。
 
@@ -129,6 +131,13 @@ bash build/package.sh
   如果分发请自行确认授权范围。
 
 ## 更新记录
+
+### 1.1.1
+
+- 用法说明（`uns`）按官网的排法显示：直接跟在定义正文后面、或整个义项只有它时，与正文同一行、前面补 `→`（如 good 的 1 b (8)、1 d (3)、1 f (4)）；出现在例句之后的则另起一行（如 good 的 1 f (1)），并带上它自己的例句。之前这类说明的箭头丢失，或被一律当成正文的一部分。
+- 灰色底小标签：词性限定（`archaic`、`chiefly British`、`often attributive`）、义项区域（`sports`、`informal`）、词形性质（`plural`）改用行内代码显示，在 Bob 里呈现为浅灰底，和官网一致；纯文本模式不带反引号。
+- 义项自带的词形变化改成跟在编号后面（water 的 `a(1) waters ˈwȯ-tərz ˈwä- plural : …`），不再用括号包在释义末尾。
+- 交叉引用（compare / see also 等）前面改用 `→`（官网那里是一个箭头图标）；具体化说明（`specifically`、`especially`、`also`）在 Markdown 下改成无项目符号的独立段落。
 
 ### 1.1.0
 

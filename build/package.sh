@@ -11,7 +11,7 @@ mkdir -p dist
 rm -f "dist/${NAME}"
 
 zip -r -X "dist/${NAME}" \
-  info.json main.js icon.png src README.md LICENSE \
+  info.json main.js icon.png src README.md README.en.md LICENSE \
   -x '*.DS_Store' '*__MACOSX*' >/dev/null
 
 echo "已生成 dist/${NAME}"

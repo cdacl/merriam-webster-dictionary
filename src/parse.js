@@ -82,6 +82,8 @@ function parseInflections(list, dictKey) {
       name: Config.INFLECTION_NAMES[label] || (label === 'or' ? 'or' : label),
       value: value,
       raw: label,
+      // spl 是词形本身的性质（例如 plural），官网上显示成灰色底的小标签
+      label: Utils.textOf(item.spl || ''),
       pronunciations: parsePronunciations(item.prs, dictKey)
     });
   });
@@ -142,12 +144,22 @@ function parseDefinitionText(dt) {
     } else if (tag === 'uns' || tag === 'snote' || tag === 'note') {
       // 这几种标签的 payload 可能是嵌套的 [tag, payload] 块，
       // 例如 ["uns", [[["text", "…"], ["vis", […]]]]]
+      // 它们在 MW 网页上是独立的一行（用法说明），并带自己的例句，
+      // 所以单独存成一个 note 部件，渲染时另起一段。
+      var noteText = [];
+      var noteExamples = [];
       if (Array.isArray(payload)) {
-        var inner = parseDefinitionText(flattenPairs(payload));
-        inner.forEach(function (part) { parts.push(part); });
+        parseDefinitionText(flattenPairs(payload)).forEach(function (part) {
+          if (part.t === 'vis') noteExamples = noteExamples.concat(part.v);
+          else if (part.t === 'text' || part.t === 'note' || part.t === 'label') noteText.push(part.v);
+        });
       } else {
-        var note = Utils.textOf(payload);
-        if (note) parts.push({ t: 'note', v: note });
+        var plain = Utils.textOf(payload);
+        if (plain) noteText.push(plain);
+      }
+      var noteValue = Utils.collapse(noteText.join(' '));
+      if (noteValue || noteExamples.length) {
+        parts.push({ t: 'note', v: noteValue, examples: noteExamples });
       }
     } else if (tag === 'gl') {
       var label = Utils.textOf(payload);

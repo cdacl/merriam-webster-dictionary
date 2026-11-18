@@ -2,6 +2,14 @@
   "identifier": "com.cdacl.bobplugin.merriamwebster",
   "versions": [
     {
+      "version": "1.1.1",
+      "desc": "用法说明按官网排法（→ 与同行/独立段落）、灰底小标签（archaic、sports、plural 等）、义项词形变化移到编号后面、交叉引用改用 →、具体化说明去掉项目符号；新增英文说明 README.en.md。",
+      "sha256": "31365b28ba5af7414edf76d9aefcaaf4aadfb561e64f51211f1227668794c769",
+      "url": "https://github.com/cdacl/merriam-webster-dictionary/releases/download/v1.1.1/merriam-webster-dictionary-1.1.1.bobplugin",
+      "minBobVersion": "1.8.0",
+      "timestamp": 1794966895089
+    },
+    {
       "version": "1.1.0",
       "desc": "用 Bob 1.21 的 Markdown 渲染重排完整释义：小节标题、引用块例句、词条分割线；老版本 Bob 自动退回纯文本。",
       "sha256": "f5fa4dbeec322f802988d837be535e02297b6b4b3fa269fd09feed669e8f1f7c",

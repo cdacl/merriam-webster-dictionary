@@ -1,0 +1,112 @@
+[
+  {
+    "meta": {
+      "id": "water:1",
+      "uuid": "22222222-3333-4444-5555-666666666666",
+      "sort": "water",
+      "src": "collegiate",
+      "section": "alpha",
+      "stems": [
+        "water"
+      ],
+      "offensive": false
+    },
+    "hom": 1,
+    "hwi": {
+      "hw": "wa*ter",
+      "prs": [
+        {
+          "mw": "\u02c8w\u022f-t\u0259r",
+          "sound": {
+            "audio": "water002"
+          }
+        }
+      ]
+    },
+    "fl": "noun",
+    "lbs": [
+      "often attributive"
+    ],
+    "def": [
+      {
+        "sseq": [
+          [
+            [
+              "sense",
+              {
+                "sn": "1 a (1)",
+                "ins": [
+                  {
+                    "if": "wa*ters",
+                    "prs": [
+                      {
+                        "mw": "\u02c8w\u022f-t\u0259rz"
+                      }
+                    ],
+                    "spl": "plural"
+                  }
+                ],
+                "dt": [
+                  [
+                    "text",
+                    "{bc}the water occupying or flowing in a particular bed"
+                  ]
+                ],
+                "sdsense": {
+                  "sd": "specifically",
+                  "dt": [
+                    [
+                      "text",
+                      " a lustrous appearance given to cloth by calendering"
+                    ]
+                  ]
+                }
+              }
+            ],
+            [
+              "sense",
+              {
+                "sn": "b",
+                "dt": [
+                  [
+                    "text",
+                    "{bc}a natural mineral water "
+                  ],
+                  [
+                    "uns",
+                    [
+                      [
+                        [
+                          "text",
+                          "usually plural"
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              }
+            ],
+            [
+              "sense",
+              {
+                "sn": "c",
+                "sls": [
+                  "chiefly British"
+                ],
+                "dt": [
+                  [
+                    "text",
+                    "{bc}lake, pond "
+                  ]
+                ]
+              }
+            ]
+          ]
+        ]
+      }
+    ],
+    "shortdef": [
+      "the water occupying or flowing in a particular bed"
+    ]
+  }
+]

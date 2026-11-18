@@ -29,6 +29,15 @@ function italicSafe(mode, text) {
   return text.indexOf('*') >= 0 ? text : '*' + text + '*';
 }
 
+// 灰色底的小标签（官网的 mw-badge-gray-100）：Markdown 的行内代码自带浅灰底
+function badge(mode, text) {
+  var value = flatten(text);
+  if (!value) return '';
+  if (mode !== 'md') return value;
+  if (value.indexOf('`') >= 0) return '`` ' + value + ' ``';
+  return '`' + value + '`';
+}
+
 // 需要空行时补一个，避免连续空行
 function boldSafe(mode, text) {
   if (!text) return '';
@@ -80,11 +89,12 @@ function pronunciationList(list, mode) {
 
 // 一个词形变化：*比较级* **bet·ter** /ˈbe-tər/
 function inflectionText(item, mode) {
-  var name = item.name ? italic(mode, item.name) : '';
+  var name = item.name ? badge(mode, item.name) : '';
   var form = bold(mode, Markup.cleanHeadword(item.value));
   var pron = pronunciationList(item.pronunciations, mode);
+  var label = item.label ? badge(mode, item.label) : '';
   var line = name ? name + ' ' + form : form;
-  return flatten(line + (pron ? ' ' + pron : ''));
+  return flatten(line + (pron ? ' ' + pron : '') + (label ? ' ' + label : ''));
 }
 
 // MW 用 {il:'or'} 表示「或」的前后并列，渲染时并进同一组
@@ -154,7 +164,7 @@ function inflectionLine(inflections, partOfSpeech, mode) {
         forms.push('; ' + form);
       }
     });
-    return (label ? italic(mode, label) + ' ' : '') + forms.join('');
+    return (label ? badge(mode, label) + ' ' : '') + forms.join('');
   });
   return flatten(texts.join('; '));
 }
@@ -173,16 +183,32 @@ function flatten(text) {
 function senseBody(sense, mode) {
   var text = '';
   var examples = [];
+  var notes = [];
   (sense.parts || []).forEach(function (part) {
-    if (part.t === 'text' || part.t === 'note') {
+    if (part.t === 'text') {
       text = appendFragment(text, Markup.render(part.v, mode));
+    } else if (part.t === 'note') {
+      // 用法说明（uns 等）在 MW 网页上是独立的一行，自带例句
+      notes.push({
+        text: cleanNoteText(part.v || '', mode),
+        examples: part.examples || [],
+        // dt 里先出现例句、再出现用法说明时（good 的 f (1)），说明另起一行；
+        // 直接跟在定义正文后面（good 的 (4)、1 b (8)）时，就并进同一行
+        afterExamples: examples.length > 0
+      });
     } else if (part.t === 'label') {
       text = appendFragment(text, part.v);
     } else if (part.t === 'vis') {
       examples = examples.concat(part.v);
     }
   });
-  return { text: flatten(text), examples: examples };
+  return { text: flatten(text), examples: examples, notes: notes };
+}
+
+// 用法说明前面统一用箭头，数据里有的自带破折号
+function cleanNoteText(raw, mode) {
+  var text = Markup.render(raw, mode);
+  return flatten(text).replace(/^[\u2014\u2013-]\s*/, '');
 }
 
 // 渲染一个义项（含例句、子义项）
@@ -196,16 +222,47 @@ function renderSense(sense, options, mode, level, out) {
   }
 
   var head = sense.sn ? bold(mode, sense.sn) : '';
-  var labels = sense.labels.length ? ' ' + italic(mode, sense.labels.join(', ')) : '';
+  var labels = '';
+  if (sense.labels.length) {
+    labels = ' ' + sense.labels.map(function (label) {
+      return badge(mode, label);
+    }).join(mode === 'md' ? ' ' : ', ');
+  }
   if (!head) sep = '';
   // 没有 {bc} 冒号的义项，编号和正文之间补一个空格
   if (head && text && !sep) sep = ' ';
 
-  var line = flatten(head + labels + sep + text);
+  // 义项自带的发音与词形变化（例如某个义项专属的复数形式）紧跟编号，
+  // 官网的排法是「a(1) waters ˈwȯ-tərz ˈwä- plural : …」
+  var extra = [];
+  if (sense.pronunciations.length) extra.push(pronunciationList(sense.pronunciations, mode));
+  if (sense.inflections.length) {
+    extra.push(sense.inflections.map(function (item) {
+      return inflectionText(item, mode);
+    }).join('  '));
+  }
+  var extraText = flatten(extra.join(' '));
+  var line = flatten(head + labels + (extraText ? ' ' + extraText : '') + sep + text);
+
+  var inlineNotes = [];
+  var blockNotes = [];
+  (body.notes || []).forEach(function (note) {
+    if (note.afterExamples) blockNotes.push(note);
+    else inlineNotes.push(note);
+  });
+  inlineNotes.forEach(function (note) {
+    if (!note.text) return;
+    line = flatten(line ? line + ' → ' + note.text : '→ ' + note.text);
+  });
 
   // 只有编号、没有任何内容的义项（数据里会出现）不要渲染成空条目
+  var noteCount = 0;
+  (body.notes || []).forEach(function (note) {
+    if (note.text || (note.examples || []).length) noteCount++;
+  });
   if (
     !text &&
+    !noteCount &&
     !sense.sd &&
     !sense.syns.length &&
     !sense.ants.length &&
@@ -216,16 +273,6 @@ function renderSense(sense, options, mode, level, out) {
     return;
   }
 
-  // 义项里自带的发音与词形变化（例如某个义项专属的复数形式）
-  if (sense.pronunciations.length) {
-    line = flatten(line + ' ' + pronunciationList(sense.pronunciations, mode));
-  }
-  if (sense.inflections.length) {
-    var forms = sense.inflections.map(function (item) {
-      return inflectionText(item, mode);
-    });
-    line = flatten(line + ' (' + forms.join('; ') + ')');
-  }
 
   // Markdown 里「缩进但不带项目符号」只能用代码块表示，所以编号行改成普通段落；
   // 层级由编号文字本身（1 a (1)、b、2）体现。纯文本模式仍用 · 与缩进表示层级。
@@ -247,14 +294,26 @@ function renderSense(sense, options, mode, level, out) {
     });
   }
 
+  // 用法说明自己的例句（inline 的那种也会在这里补上）
+  inlineNotes.forEach(function (note) {
+    (note.examples || []).forEach(function (example) {
+      var value = flatten(Markup.render(example, mode));
+      if (!value) return;
+      if (mode === 'md') quoteLines.push(exampleLine(mode, italicSafe(mode, value)));
+      else listLines.push(bullet(mode, listLevel) + italicSafe(mode, value));
+    });
+  });
+
   // 具体化说明：specifically …
+  var sdParagraph = '';
   if (sense.sd) {
     var sdText = '';
     (sense.sdParts || []).forEach(function (part) {
       if (part.t === 'text') sdText += Markup.render(part.v, mode);
     });
     sdText = flatten(sdText).replace(/^:\s*/, '');
-    listLines.push(bullet(mode, listLevel) + italic(mode, sense.sd) + (sdText ? ' ' + sdText : ''));
+    sdParagraph = flatten(italic(mode, sense.sd) + (sdText ? ' ' + sdText : ''));
+    if (mode !== 'md') listLines.push(bullet(mode, listLevel) + sdParagraph);
   }
 
   // 同义词词典的义项里带有同义词/反义词列表
@@ -273,6 +332,35 @@ function renderSense(sense, options, mode, level, out) {
     Array.prototype.push.apply(out, quoteLines);
     blank(out);
   }
+
+  // 具体化说明在 Markdown 里另起一段，不带项目符号（与其他释义行保持一致）
+  if (mode === 'md' && sdParagraph) {
+    blank(out);
+    out.push(sdParagraph);
+    blank(out);
+  }
+
+  // 跟在例句后面的用法说明：另起一行，箭头打头，它自己的例句跟在后面
+  blockNotes.forEach(function (note) {
+    var noteText = flatten(note.text || '');
+    if (noteText) {
+      blank(out);
+      out.push('→ ' + noteText);
+    }
+    if (!options.showExamples) return;
+    var noteLines = [];
+    (note.examples || []).forEach(function (example) {
+      var value = flatten(Markup.render(example, mode));
+      if (!value) return;
+      if (mode === 'md') noteLines.push(exampleLine(mode, italicSafe(mode, value)));
+      else noteLines.push(bullet(mode, listLevel) + italicSafe(mode, value));
+    });
+    if (noteLines.length) {
+      blank(out);
+      Array.prototype.push.apply(out, noteLines);
+      blank(out);
+    }
+  });
 
   if (listLines.length) {
     blank(out);
@@ -395,7 +483,11 @@ function renderEntry(entry, options, mode, out, displayNumber) {
   var headLine = [];
   var pos = posLabel(entry.partOfSpeech);
   if (pos) headLine.push(bold(mode, pos));
-  if (entry.labels.length) headLine.push(italic(mode, entry.labels.join(', ')));
+  if (entry.labels.length) {
+    headLine.push(entry.labels.map(function (label) {
+      return badge(mode, label);
+    }).join(mode === 'md' ? ' ' : ', '));
+  }
   var pronunciations = pronunciationList(entry.pronunciations, mode);
   if (pronunciations) headLine.push(pronunciations);
   if (headLine.length) {
@@ -533,7 +625,7 @@ function phoneticType(label) {
 function senseSummary(sense) {
   var text = '';
   (sense.parts || []).forEach(function (part) {
-    if (part.t === 'text' || part.t === 'note') {
+    if (part.t === 'text') {
       text = appendFragment(text, Markup.render(part.v, 'plain'));
     }
   });

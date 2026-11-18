@@ -41,7 +41,8 @@ function pairMarkers(name, markdown) {
       return ['[', ']'];
     case 'dx':
     case 'dx_ety':
-      return ['— ', ''];
+      // 官网的交叉引用前面是一个箭头图标，纯文本里用 → 表示
+      return ['→ ', ''];
     case 'dx_def':
       return ['(', ')'];
     case 'sc':

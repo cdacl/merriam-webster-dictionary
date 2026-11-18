@@ -1,6 +1,6 @@
 {
   "identifier": "com.cdacl.bobplugin.merriamwebster",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "category": "translate",
   "name": "Merriam-Webster 词典",
   "summary": "基于 Merriam-Webster 官方 API 的英英词典：释义、音标、真人发音、词形变化、词源与同义词",
